@@ -195,6 +195,7 @@ let resetDB = async (option) => {
 
     const drop = 'DROP TABLE IF EXISTS `test_a`;';
     var result = await query(drop);
+    
     if (option == 1) {
         const create = 'CREATE TABLE test_a (\
         id int ,\
