@@ -8,35 +8,17 @@ var connect = mysql.createConnection({
     database: 'test'
 });
 
-
-
 connect.connect();
-
-
 
 var dv = 1000000000; //default value
 var ev = dv; //end value
 var nv = 9182506147; //update value
 
 
-//Queries
-/*
-const insert_A = 'INSERT INTO `test_a`(`value_1`, `value_2`, `value_3`, `value_4`) \
-                VALUES (' + dv + ',' + dv + ',' + dv + ',' + dv + ');';
-
-*/
-const select_A = 'SELECT `id`, `value_1`, `value_2`, `value_3`, `value_4`, `created` FROM `test_a` WHERE `id`=';
-
-const update_A = 'UPDATE `test_a` SET `value_1`=' + nv + ',`value_2`=' + nv + ',`value_3`=' + nv + ',`value_4`=' + nv + ' WHERE `id`=';
-
-const count_R = 'SELECT COUNT(`id`) AS ' + 'count' + ' FROM `test_a` WHERE 1';
-
-var SAFE_LINE = 500000;
-
 
 let query = (str) => {
-    return new Promise(function (resolve, reject) {
-        connect.query(str, function (err, rows, fields) {
+    return new Promise((resolve, reject) => {
+        connect.query(str, (err, rows, fields) => {
             if (err) {
                 return reject(err);
             }
@@ -45,11 +27,6 @@ let query = (str) => {
     });
 }
 
-
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
 
 
 let insert = async (seconds) => {
@@ -195,7 +172,7 @@ let resetDB = async (option) => {
 
     const drop = 'DROP TABLE IF EXISTS `test_a`;';
     var result = await query(drop);
-    
+
     if (option == 1) {
         const create = 'CREATE TABLE test_a (\
         id int ,\
@@ -229,6 +206,7 @@ let resetDB = async (option) => {
 
 let runBechmark = async (seconds, option) => {
 
+
     var reseted = await resetDB(option);
     if (reseted) {
 
@@ -238,7 +216,6 @@ let runBechmark = async (seconds, option) => {
             console.info('Rows :\t %d Inserted \n', inserts);
             var selects = await select(seconds);
         }
-
 
         if (selects) {
             console.info('Rows :\t %d Selected \n', selects);
@@ -257,9 +234,7 @@ let runBechmark = async (seconds, option) => {
     }
 
 
-    connect.end();
-
-
+    return  "Ended";
 }
 
 

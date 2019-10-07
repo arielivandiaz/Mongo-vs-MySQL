@@ -181,37 +181,38 @@ let mdelete = async (seconds) => {
 let runBechmark = async (seconds) => {
 
 
-    //Connect initialization with await to solve mongo init/connect delay
-    var connect = await mongo.connect(url, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    });
+        //Connect initialization with await to solve mongo init/connect delay
+        var connect = await mongo.connect(url, {
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        });
 
 
-    var inserts = await insert(seconds);
+        var inserts = await insert(seconds);
 
-    if (inserts) {
-        console.info('Rows :\t %d Inserted \n', inserts);
-        var selects = await select(seconds);
-    }
+        if (inserts) {
+            console.info('Rows :\t %d Inserted \n', inserts);
+            var selects = await select(seconds);
+        }
 
 
-    if (selects) {
-        console.info('Rows :\t %d Selected \n', selects);
-        var updates = await update(seconds);
-    }
+        if (selects) {
+            console.info('Rows :\t %d Selected \n', selects);
+            var updates = await update(seconds);
+        }
 
-    if (updates) {
-        console.info('Rows :\t %d Updated \n', updates);
-        var deletes = await mdelete(seconds);
-    }
+        if (updates) {
+            console.info('Rows :\t %d Updated \n', updates);
+            var deletes = await mdelete(seconds);
+        }
 
-    if (deletes) {
-        console.info('Rows :\t %d Deleted \n', deletes);
-    }
+        if (deletes) {
+            console.info('Rows :\t %d Deleted \n', deletes);
+        }
 
-    connect.disconnect();
-    return 0;
+        connect.disconnect();
+        return  "Ended";
+
 }
 
 

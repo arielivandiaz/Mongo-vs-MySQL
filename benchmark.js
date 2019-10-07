@@ -1,8 +1,24 @@
 var mongo = require('./mongo');
 var mysql = require('./mysql');
 
-mongo.runBechmark(10);
-mysql.runBechmark(10,1);
-mysql.runBechmark(10,2);
+var seconds= 10;
 
-return ;
+let main = () =>{
+
+console.log("Start Mongo Test #1");
+mongo.runBechmark(seconds).then((resolve) => {
+    console.log(resolve);
+    console.log("Start MySQL Test #1");
+    mysql.runBechmark(seconds, 1).then((resolve) => {
+        console.log(resolve);
+        console.log("Start MySQL Test #2");
+        mysql.runBechmark(seconds, 2).then((resolve) => {
+            console.log(resolve);
+            return;
+        });
+    });
+});
+
+};
+
+main();
