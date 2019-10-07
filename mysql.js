@@ -74,7 +74,7 @@ let insert = async (seconds) => {
         var end = process.hrtime(start);
         if (end[1] > 997000000 || end[0] == 1) {
             iterations++;
-            console.info('Rows : %d Execution time (hr): %ds %dms', count, end[0], end[1] / 1000000);
+            console.info('Rows :\t %d \tExecution time: %ds %dms', count, end[0], end[1] / 1000000);
             total_count += count;
             count = 0;
             if (iterations > seconds) {
@@ -108,7 +108,7 @@ let select = async (seconds) => {
         var end = process.hrtime(start);
         if (end[1] > 997000000 || end[0] == 1) {
             iterations++;
-            console.info('Rows : %d Execution time (hr): %ds %dms', count, end[0], end[1] / 1000000);
+            console.info('Rows :\t %d \tExecution time: %ds %dms', count, end[0], end[1] / 1000000);
             total_count += count;
             count = 0;
             if (iterations > seconds) {
@@ -141,7 +141,7 @@ let update = async (seconds) => {
         var end = process.hrtime(start);
         if (end[1] > 997000000 || end[0] == 1) {
             iterations++;
-            console.info('Rows : %d Execution time (hr): %ds %dms', count, end[0], end[1] / 1000000);
+            console.info('Rows :\t %d \tExecution time: %ds %dms', count, end[0], end[1] / 1000000);
             total_count += count;
             count = 0;
             if (iterations > seconds) {
@@ -171,14 +171,14 @@ let mdelete = async (seconds) => {
         } else {
             total_count += count;
             var end = process.hrtime(start);
-            console.info('Rows : %d \t Execution time: %ds %dms', count, end[0], end[1] / 1000000);
+            console.info('Rows :\t %d \t \tExecution time: %ds %dms', count, end[0], end[1] / 1000000);
             return total_count;
         }
 
         var end = process.hrtime(start);
         if (end[1] > 997000000 || end[0] == 1) {
             iterations++;
-            console.info('Rows : %d Execution time (hr): %ds %dms', count, end[0], end[1] / 1000000);
+            console.info('Rows :\t %d \tExecution time: %ds %dms', count, end[0], end[1] / 1000000);
             total_count += count;
             count = 0;
             if (iterations > seconds) {
@@ -204,6 +204,7 @@ let resetDB = async (option) => {
         value_4 varchar(64),\
         created datetime DEFAULT CURRENT_TIMESTAMP \
     );';
+        var result = await query(create);
     } else {
         const create = 'CREATE TABLE test_a (\
         id int NOT NULL AUTO_INCREMENT,\
@@ -214,9 +215,10 @@ let resetDB = async (option) => {
         created datetime DEFAULT CURRENT_TIMESTAMP,\
         PRIMARY KEY (id)\
     );';
+        var result = await query(create);
     }
 
-    var result = await query(create);
+
     return 1;
 
 
@@ -224,7 +226,7 @@ let resetDB = async (option) => {
 
 
 
-let runBechmark = async (seconds,option) => {
+let runBechmark = async (seconds, option) => {
 
     var reseted = await resetDB(option);
     if (reseted) {
@@ -232,23 +234,23 @@ let runBechmark = async (seconds,option) => {
         var inserts = await insert(seconds);
 
         if (inserts) {
-            console.info('Rows : %d Inserted \n', inserts);
+            console.info('Rows :\t %d Inserted \n', inserts);
             var selects = await select(seconds);
         }
 
 
         if (selects) {
-            console.info('Rows : %d Selected \n', selects);
+            console.info('Rows :\t %d Selected \n', selects);
             var updates = await update(seconds);
         }
 
         if (updates) {
-            console.info('Rows : %d Updated \n', updates);
+            console.info('Rows :\t %d Updated \n', updates);
             var deletes = await mdelete(seconds);
         }
 
         if (deletes) {
-            console.info('Rows : %d Deleted \n', deletes);
+            console.info('Rows :\t %d Deleted \n', deletes);
         }
 
     }
