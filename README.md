@@ -9,12 +9,13 @@ We made a simple benchmark with simple database query instructions.
 
 ## Results
 
-[![Laguna](https://laguna.com.ar/img/insert.PNG)]()
-[![Laguna](https://laguna.com.ar/img/select.PNG)]()
-[![Laguna](https://laguna.com.ar/img/update.PNG)]()
+[![insert](https://github.com/arielivandiaz/Mongo-vs-MySQL/blob/master/img/insert.PNG?raw=true)]()
+[![select](https://github.com/arielivandiaz/Mongo-vs-MySQL/blob/master/img/select.PNG?raw=true)]()
+[![update](https://github.com/arielivandiaz/Mongo-vs-MySQL/blob/master/img/update.PNG?raw=true)]()
 
 
 *MySQL #1 : No indexed*
+
 *MySQL #2 : Id's indexed with Primary Key*
 
 ## Requeriments
